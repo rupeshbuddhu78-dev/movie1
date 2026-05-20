@@ -31,7 +31,7 @@
         .logo {
             font-size: 28px;
             font-weight: 700;
-            color: #E50914; /* Netflix Red */
+            color: #E50914; 
             text-transform: uppercase;
             letter-spacing: 2px;
             text-shadow: 0 0 10px rgba(229, 9, 20, 0.5);
@@ -40,10 +40,10 @@
         /* Hero Section */
         .hero {
             text-align: center;
-            padding: 80px 20px 40px;
+            padding: 60px 20px 20px;
         }
         .hero h1 {
-            font-size: 4rem;
+            font-size: 3.5rem;
             font-weight: 700;
             margin-bottom: 15px;
             background: linear-gradient(90deg, #fff, #aaa);
@@ -51,10 +51,10 @@
             -webkit-text-fill-color: transparent;
         }
         .hero p {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             color: #a3a3a3;
             max-width: 600px;
-            margin: 0 auto 40px;
+            margin: 0 auto 30px;
         }
 
         /* Search Box */
@@ -100,12 +100,19 @@
             box-shadow: 0 6px 20px rgba(229, 9, 20, 0.6);
         }
 
-        /* Loading & Messages */
+        /* Sections & Loading */
+        .section-title {
+            text-align: center;
+            font-size: 2rem;
+            margin-top: 40px;
+            color: #fff;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.5);
+        }
         .message-container {
             text-align: center;
-            margin-top: 30px;
+            margin-top: 20px;
             font-size: 1.2rem;
-            height: 30px;
+            min-height: 30px;
         }
         .loading {
             color: #E50914;
@@ -122,9 +129,9 @@
         /* Movie Grid */
         .movies-container {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 30px;
-            padding: 40px 10%;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 25px;
+            padding: 30px 10%;
             max-width: 1400px;
             margin: 0 auto;
         }
@@ -142,7 +149,7 @@
             display: flex;
             flex-direction: column;
             justify-content: center;
-            min-height: 250px;
+            min-height: 220px;
             cursor: pointer;
         }
         
@@ -160,7 +167,7 @@
         }
 
         .movie-card:hover {
-            transform: translateY(-10px);
+            transform: translateY(-8px);
             border-color: #E50914;
             box-shadow: 0 10px 30px rgba(229, 9, 20, 0.2);
             background: rgba(255, 255, 255, 0.08);
@@ -172,14 +179,14 @@
         }
 
         .movie-title {
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             font-weight: 600;
             color: #fff;
         }
 
-        /* For Mobile Phones */
+        /* Mobile */
         @media (max-width: 768px) {
-            .hero h1 { font-size: 2.5rem; }
+            .hero h1 { font-size: 2.2rem; }
             .search-box { flex-direction: column; align-items: center; }
             .search-box input, .search-box button { width: 90%; }
         }
@@ -193,10 +200,10 @@
 
     <div class="hero">
         <h1>AI Powered Movies</h1>
-        <p>Type your favorite Hollywood movie (like Avatar, Inception, Interstellar) and our AI model will recommend the best matches for you.</p>
+        <p>Type your favorite Hollywood movie or click a movie below, and our AI will recommend the best matches for you.</p>
         
         <div class="search-box">
-            <input type="text" id="movieInput" placeholder="Enter a movie name..." onkeypress="handleKeyPress(event)">
+            <input type="text" id="movieInput" placeholder="Eg: Avatar, Batman, Inception..." onkeypress="handleKeyPress(event)">
             <button onclick="fetchRecommendations()">Search</button>
         </div>
     </div>
@@ -206,66 +213,103 @@
         <div id="errorText" class="error-msg"></div>
     </div>
 
-    <div class="movies-container" id="resultsGrid">
-        </div>
+    <h2 class="section-title" id="recTitle" style="display: none;">🤖 AI Recommendations</h2>
+    <div class="movies-container" id="resultsGrid"></div>
+
+    <h2 class="section-title" id="trendingTitle">🔥 Popular Movies</h2>
+    <div class="movies-container" id="trendingGrid"></div>
 
     <script>
-        // Enter dabane par bhi search ho jayega
+        // 1. Page load hote hi ye movies screen par aa jayengi
+        const popularMovies = [
+            "Avatar", "The Dark Knight", "Inception", "Interstellar", 
+            "Titanic", "The Avengers", "The Matrix", "Spider-Man",
+            "Iron Man", "Jurassic Park"
+        ];
+
+        window.onload = () => {
+            const trendingGrid = document.getElementById("trendingGrid");
+            popularMovies.forEach(movie => {
+                trendingGrid.innerHTML += `
+                    <div class="movie-card" onclick="clickMovieCard('${movie}')">
+                        <div class="movie-icon">🔥</div>
+                        <div class="movie-title">${movie}</div>
+                    </div>
+                `;
+            });
+        };
+
+        // 2. Jab koi movie card par click kare
+        function clickMovieCard(movieName) {
+            // Search box me naam bhar do
+            document.getElementById("movieInput").value = movieName;
+            
+            // Screen ko smoothly upar search box ki taraf le jao
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            
+            // API ko request bhej do
+            fetchRecommendations();
+        }
+
+        // Enter dabane par bhi search
         function handleKeyPress(event) {
             if (event.key === "Enter") {
                 fetchRecommendations();
             }
         }
 
+        // 3. Asli AI Recommendation Function
         async function fetchRecommendations() {
             const movieInput = document.getElementById("movieInput").value.trim();
             const resultsGrid = document.getElementById("resultsGrid");
             const loadingText = document.getElementById("loadingText");
             const errorText = document.getElementById("errorText");
+            const recTitle = document.getElementById("recTitle");
 
-            // Agar box khali hai
             if (!movieInput) {
                 errorText.innerHTML = "⚠️ Please enter a movie name first!";
                 resultsGrid.innerHTML = "";
+                recTitle.style.display = "none";
                 return;
             }
 
-            // UI Reset kar rahe hain naye search ke liye
+            // UI Reset
             errorText.innerHTML = "";
             resultsGrid.innerHTML = "";
+            recTitle.style.display = "none";
             loadingText.style.display = "block";
 
             try {
-                // TUMHARA ASLI RENDER API LINK YAHAN HAI
+                // TUMHARA API LINK
                 const apiUrl = `https://movie-recommender-api-xu5m.onrender.com/recommend?movie=${encodeURIComponent(movieInput)}`;
                 
                 const response = await fetch(apiUrl);
                 const data = await response.json();
 
-                // Loading hide karo
                 loadingText.style.display = "none";
 
-                // Agar API ne error return kiya (Movie nahi mili)
                 if (data.error) {
                     errorText.innerHTML = data.error;
                 } 
-                // Agar AI ne movies nikal li!
                 else if (data.recommendations && data.recommendations.length > 0) {
+                    // Agar movies mil gayi toh Title dikhao
+                    recTitle.style.display = "block";
+                    recTitle.innerHTML = `🤖 Because you liked "${data.searched_movie}"`;
+
+                    // Movies display karo (ye naye cards honge, jinpe click karne se firse search hoga)
                     data.recommendations.forEach((movieName) => {
-                        const movieCard = `
-                            <div class="movie-card">
+                        resultsGrid.innerHTML += `
+                            <div class="movie-card" onclick="clickMovieCard('${movieName}')">
                                 <div class="movie-icon">🎬</div>
                                 <div class="movie-title">${movieName}</div>
                             </div>
                         `;
-                        resultsGrid.innerHTML += movieCard;
                     });
                 }
 
             } catch (error) {
                 loadingText.style.display = "none";
-                errorText.innerHTML = "🚨 Backend se connect nahi ho paaya! Server so raha hoga, 1-2 minute baad try karo.";
-                console.error("API Error:", error);
+                errorText.innerHTML = "🚨 Backend se connect nahi ho paaya! Server so raha hoga, thodi der baad try karo.";
             }
         }
     </script>
