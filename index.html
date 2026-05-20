@@ -6,19 +6,8 @@
     <title>FlixAI - Premium Movie Engine</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
-        }
-
-        body {
-            background-color: #141414; /* Netflix Signature Dark Black */
-            color: #ffffff;
-            min-height: 100vh;
-            overflow-x: hidden;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        body { background-color: #141414; color: #ffffff; min-height: 100vh; overflow-x: hidden; }
 
         /* Smooth Scrollbar */
         ::-webkit-scrollbar { width: 8px; }
@@ -27,220 +16,79 @@
 
         /* Navbar */
         header {
-            padding: 20px 6%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: absolute;
-            top: 0;
-            width: 100%;
-            z-index: 10;
-            background: linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, transparent 100%);
+            padding: 20px 6%; display: flex; justify-content: space-between; align-items: center;
+            position: absolute; top: 0; width: 100%; z-index: 10;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.9) 0%, transparent 100%);
         }
-        .logo {
-            font-size: 32px;
-            font-weight: 700;
-            color: #E50914; 
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
+        .logo { font-size: 32px; font-weight: 700; color: #E50914; text-transform: uppercase; letter-spacing: 1px; }
 
-        /* Large Cinematic Hero Banner */
+        /* Cinematic Hero Banner */
         .hero-banner {
-            position: relative;
-            height: 70vh;
-            background: linear-gradient(to right, rgba(0,0,0,0.85) 30%, rgba(0,0,0,0.2) 100%), 
+            position: relative; height: 75vh;
+            background: linear-gradient(to right, rgba(20,20,20,1) 10%, rgba(20,20,20,0.4) 60%, rgba(20,20,20,0.8) 100%), 
                         url('https://image.tmdb.org/t/p/original/r256Z6W68w6ZBAw6n7Rqlet85N2.jpg') no-repeat center center/cover;
-            display: flex;
-            align-items: center;
-            padding: 0 6%;
-            margin-bottom: 20px;
+            display: flex; align-items: center; padding: 0 6%; margin-bottom: 20px;
         }
-        .hero-content {
-            max-width: 650px;
-            margin-top: 50px;
-        }
-        .hero-badge {
-            background: #E50914;
-            color: #fff;
-            padding: 4px 10px;
-            font-size: 12px;
-            font-weight: 600;
-            border-radius: 4px;
-            text-transform: uppercase;
-            display: inline-block;
-            margin-bottom: 15px;
-        }
-        .hero-banner h1 {
-            font-size: 3.5rem;
-            font-weight: 700;
-            line-height: 1.1;
-            margin-bottom: 15px;
-            text-shadow: 2px 2px 10px rgba(0,0,0,0.5);
-        }
-        .hero-banner p {
-            font-size: 1.1rem;
-            color: #cccccc;
-            margin-bottom: 30px;
-            text-shadow: 1px 1px 5px rgba(0,0,0,0.5);
-        }
+        .hero-content { max-width: 650px; margin-top: 50px; z-index: 2; }
+        .hero-badge { background: #E50914; color: #fff; padding: 4px 10px; font-size: 12px; font-weight: 600; border-radius: 4px; text-transform: uppercase; display: inline-block; margin-bottom: 15px; }
+        .hero-banner h1 { font-size: 3.5rem; font-weight: 700; line-height: 1.1; margin-bottom: 15px; text-shadow: 2px 2px 10px rgba(0,0,0,0.8); }
+        .hero-banner p { font-size: 1.1rem; color: #cccccc; margin-bottom: 30px; text-shadow: 1px 1px 5px rgba(0,0,0,0.8); }
 
-        /* Premium Search Container Overlay */
-        .search-container {
-            background: rgba(20, 20, 20, 0.75);
-            padding: 30px;
-            border-radius: 15px;
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
-        }
-        .search-box {
-            display: flex;
-            gap: 15px;
-        }
-        .search-box input {
-            flex: 1;
-            padding: 15px 25px;
-            font-size: 16px;
-            border: none;
-            border-radius: 8px;
-            background: rgba(255, 255, 255, 0.15);
-            color: white;
-            outline: none;
-            transition: 0.3s;
-            border: 1px solid transparent;
-        }
-        .search-box input:focus {
-            border-color: #E50914;
-            background: rgba(255, 255, 255, 0.25);
-        }
-        .search-box button {
-            padding: 15px 35px;
-            font-size: 16px;
-            font-weight: 600;
-            border: none;
-            border-radius: 8px;
-            background: #E50914;
-            color: white;
-            cursor: pointer;
-            transition: 0.3s ease;
-        }
-        .search-box button:hover {
-            background: #b80710;
-            transform: scale(1.02);
-        }
+        /* Search Container */
+        .search-container { background: rgba(20, 20, 20, 0.75); padding: 25px; border-radius: 10px; backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.1); }
+        .search-box { display: flex; gap: 15px; }
+        .search-box input { flex: 1; padding: 15px; font-size: 16px; border: none; border-radius: 6px; background: rgba(255, 255, 255, 0.15); color: white; outline: none; transition: 0.3s; }
+        .search-box input:focus { border: 1px solid #E50914; background: rgba(255, 255, 255, 0.25); }
+        .search-box button { padding: 15px 30px; font-size: 16px; font-weight: 600; border: none; border-radius: 6px; background: #E50914; color: white; cursor: pointer; transition: 0.3s; }
+        .search-box button:hover { background: #b80710; transform: scale(1.02); }
 
-        /* Status & Loading Messages */
-        .status-box {
-            text-align: center;
-            margin: 20px 0;
-            min-height: 30px;
-            font-size: 1.1rem;
-        }
-        .loading {
-            color: #46d369; /* Netflix Green for updates */
-            display: none;
-            font-weight: 500;
-        }
-        .error-msg { color: #ff3333; font-weight: 500; }
+        /* Grid System */
+        .section-container { padding: 0 6% 40px; }
+        .section-title { font-size: 1.6rem; font-weight: 600; margin-bottom: 20px; color: #e5e5e5; display: flex; align-items: center; gap: 10px; }
+        .movies-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 20px; }
 
-        /* Real Movie Grid System (Netflix Row Style) */
-        .section-container {
-            padding: 0 6% 40px;
-        }
-        .section-title {
-            font-size: 1.6rem;
-            font-weight: 600;
-            margin-bottom: 20px;
-            color: #e5e5e5;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .movies-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-            gap: 25px;
-        }
-
-        /* Netflix-style Poster Card */
-        .movie-card {
-            position: relative;
-            aspect-ratio: 2 / 3;
-            border-radius: 8px;
-            overflow: hidden;
-            background-color: #222;
-            cursor: pointer;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-            transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.4s ease;
-        }
-        .movie-card img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: 0.4s;
-        }
+        /* Movie Card */
+        .movie-card { position: relative; aspect-ratio: 2 / 3; border-radius: 8px; overflow: hidden; background-color: #222; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.3); transition: transform 0.3s, box-shadow 0.3s; }
+        .movie-card img { width: 100%; height: 100%; object-fit: cover; transition: 0.4s; }
+        .movie-details { position: absolute; bottom: 0; left: 0; right: 0; padding: 40px 15px 15px; background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, transparent 100%); display: flex; flex-direction: column; justify-content: flex-end; opacity: 0; transition: opacity 0.3s; }
         
-        /* Fallback content if image fails */
-        .poster-fallback {
-            width: 100%; height: 100%;
-            display: flex; flex-direction: column; justify-content: center; align-items: center;
-            background: linear-gradient(45deg, #1f1c2c, #928dab); padding: 15px; text-align: center;
-        }
+        .movie-card:hover { transform: scale(1.05); box-shadow: 0 10px 20px rgba(0,0,0,0.7); z-index: 5; border: 1px solid rgba(255,255,255,0.2); }
+        .movie-card:hover .movie-details { opacity: 1; }
+        .movie-title { font-size: 0.95rem; font-weight: 600; color: #fff; margin-bottom: 5px; line-height: 1.2; }
+        .movie-meta { display: flex; gap: 10px; font-size: 0.8rem; font-weight: 500; }
+        .rating { color: #46d369; } .year { color: #a3a3a3; }
+        .poster-fallback { width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; background: #333; padding: 15px; text-align: center; }
 
-        /* Gradient Details Overlay (Appears on Hover) */
-        .movie-details {
-            position: absolute;
-            bottom: 0; left: 0; right: 0;
-            padding: 40px 15px 15px;
-            background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.7) 60%, transparent 100%);
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
+        /* 🎬 NETFLIX STYLE MODAL (POPUP) 🎬 */
+        .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 1000; justify-content: center; align-items: center; backdrop-filter: blur(5px); overflow-y: auto; padding: 20px; }
+        .modal-content { background: #141414; width: 100%; max-width: 900px; border-radius: 12px; overflow: hidden; position: relative; box-shadow: 0 20px 50px rgba(0,0,0,0.8); border: 1px solid #333; margin: auto; transform: translateY(0); animation: modalIn 0.3s ease-out; }
         
-        /* Hover Animation */
-        .movie-card:hover {
-            transform: scale(1.06);
-            box-shadow: 0 12px 25px rgba(0,0,0,0.7);
-            border: 1px solid rgba(255,255,255,0.2);
-        }
-        .movie-card:hover .movie-details {
-            opacity: 1;
-        }
-        .movie-card:hover img {
-            transform: scale(1.05);
-        }
+        @keyframes modalIn { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
 
-        .movie-title {
-            font-size: 0.95rem;
-            font-weight: 600;
-            color: #fff;
-            margin-bottom: 5px;
-            line-height: 1.3;
-        }
-        .movie-meta {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 0.8rem;
-            font-weight: 500;
-        }
-        .rating {
-            color: #46d369; /* Netflix Match Green */
-        }
-        .year {
-            color: #a3a3a3;
-        }
+        .close-btn { position: absolute; top: 15px; right: 20px; background: rgba(0,0,0,0.6); color: white; border: none; font-size: 24px; cursor: pointer; z-index: 20; width: 40px; height: 40px; border-radius: 50%; display: flex; justify-content: center; align-items: center; transition: 0.2s; }
+        .close-btn:hover { background: #E50914; }
 
-        /* Mobile Optimization */
+        /* Modal Top: Main Movie Banner */
+        .modal-hero { height: 350px; background-size: cover; background-position: center; position: relative; display: flex; align-items: flex-end; padding: 30px; }
+        .modal-hero-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to top, #141414 0%, rgba(20,20,20,0.4) 50%, transparent 100%); }
+        .modal-main-info { position: relative; z-index: 10; }
+        .modal-title { font-size: 2.5rem; font-weight: 700; margin-bottom: 10px; }
+        .modal-meta { font-size: 1rem; color: #ccc; margin-bottom: 15px; display: flex; gap: 15px; align-items: center; }
+
+        /* Modal Bottom: AI Recommendations */
+        .modal-body { padding: 30px; background: #141414; }
+        .ai-title { font-size: 1.3rem; font-weight: 600; margin-bottom: 15px; color: #fff; border-left: 4px solid #E50914; padding-left: 10px; }
+        
+        .loading-ai { text-align: center; color: #46d369; font-weight: 500; padding: 20px; display: none; }
+        .error-ai { text-align: center; color: #ff3333; padding: 20px; display: none; }
+
         @media (max-width: 768px) {
-            .hero-banner { height: auto; padding: 120px 6% 40px; }
+            .hero-banner { height: auto; padding: 100px 6% 40px; }
             .hero-banner h1 { font-size: 2.2rem; }
             .search-box { flex-direction: column; }
-            .movies-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 15px; }
+            .movies-grid { grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); }
+            .modal-hero { height: 250px; }
+            .modal-title { font-size: 1.8rem; }
         }
     </style>
 </head>
@@ -258,60 +106,91 @@
             
             <div class="search-container">
                 <div class="search-box">
-                    <input type="text" id="movieInput" placeholder="Enter a Hollywood movie (e.g. Inception, Avatar, Interstellar)..." onkeypress="handleKeyPress(event)">
-                    <button onclick="fetchRecommendations()">Search AI</button>
+                    <input type="text" id="movieInput" placeholder="Enter a Hollywood movie (e.g. Inception)..." onkeypress="handleKeyPress(event)">
+                    <button onclick="handleSearchClick()">Search AI</button>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="status-box">
-        <div id="loadingText" class="loading">⏳ Scanning database & fetching HD studio posters...</div>
-        <div id="errorText" class="error-msg"></div>
-    </div>
-
-    <div class="section-container" id="recSection" style="display: none;">
-        <h2 class="section-title" id="recTitle">🤖 Because You Liked</h2>
-        <div class="movies-grid" id="resultsGrid"></div>
-    </div>
-
     <div class="section-container">
         <h2 class="section-title">🔥 Popular Movies on FlixAI</h2>
-        <div class="movies-grid" id="trendingGrid"></div>
+        <div class="movies-grid" id="trendingGrid">
+            </div>
+    </div>
+
+    <div class="modal-overlay" id="movieModal">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeModal()">×</button>
+            
+            <div class="modal-hero" id="modalHero">
+                <div class="modal-hero-overlay"></div>
+                <div class="modal-main-info">
+                    <h2 class="modal-title" id="modalTitle">Movie Name</h2>
+                    <div class="modal-meta">
+                        <span style="color: #46d369; font-weight: bold;" id="modalRating">⭐ 8.0</span>
+                        <span id="modalYear">2024</span>
+                        <span class="hero-badge" style="margin: 0; background: #333;">AI Target</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-body">
+                <h3 class="ai-title">Because you liked this, AI Recommends:</h3>
+                
+                <div id="aiLoading" class="loading-ai">⏳ Connecting to Render Backend... Finding best matches...</div>
+                <div id="aiError" class="error-ai"></div>
+                
+                <div class="movies-grid" id="modalRecGrid">
+                    </div>
+            </div>
+        </div>
     </div>
 
     <script>
-        // 1. Home Page Popular Movies Catalog with high-quality pre-configured studio posters
-        const popularMovies = [
-            { name: "Avatar", poster: "https://image.tmdb.org/t/p/w500/kyeqWzo2vAIgda3TIW0b9Z4jZuh.jpg", rating: "7.5", year: "2009" },
-            { name: "The Dark Knight", poster: "https://image.tmdb.org/t/p/w500/qJ2tWw7YiWst2wIuS9ZzZgG1p65.jpg", rating: "8.5", year: "2008" },
-            { name: "Inception", poster: "https://image.tmdb.org/t/p/w500/edv5CZvXjI9YgO96I96Z7zYJu00.jpg", rating: "8.4", year: "2010" },
-            { name: "Interstellar", poster: "https://image.tmdb.org/t/p/w500/gEU2vW9w7JWv3v3wN7wSuvjMvjB.jpg", rating: "8.4", year: "2014" },
-            { name: "Titanic", poster: "https://image.tmdb.org/t/p/w500/9xj72wYF2fsaUjX6j5UrZ8unY8G.jpg", rating: "7.9", year: "1997" },
-            { name: "The Avengers", poster: "https://image.tmdb.org/t/p/w500/RYMX2wcwHArCgU8OLol176v2uD.jpg", rating: "7.7", year: "2012" },
-            { name: "The Matrix", poster: "https://image.tmdb.org/t/p/w500/f89l6STm0g68nZ7Z2mN9wN2ZveV.jpg", rating: "8.2", year: "1999" },
-            { name: "Spider-Man: No Way Home", poster: "https://image.tmdb.org/t/p/w500/1g0dhYmX4TLw93wZgRMGBb26O6g.jpg", rating: "8.0", year: "2021" },
-            { name: "Iron Man", poster: "https://image.tmdb.org/t/p/w500/78lUT3vwtvXgR6SgVJ95Mv2f8A5.jpg", rating: "7.6", year: "2008" },
-            { name: "Jurassic Park", poster: "https://image.tmdb.org/t/p/w500/oU7vPeXg57A36frQuwV6UJu276F.jpg", rating: "8.0", year: "1993" }
-        ];
-
-        // Inject Catalog into grid on page startup
-        window.onload = () => {
+        const TMDB_KEY = "c433346e492657fa969a5a3a79d9e4a5"; // Tumhari TMDB key
+        
+        // 1. Auto-fetch 60 Trending Movies for Home Page
+        window.onload = async () => {
             const trendingGrid = document.getElementById("trendingGrid");
-            popularMovies.forEach(movie => {
-                trendingGrid.innerHTML += createMovieCardHtml(movie.name, movie.poster, movie.rating, movie.year);
-            });
+            trendingGrid.innerHTML = "<p style='color:#777;'>Loading library...</p>";
+            
+            let allMovies = [];
+            try {
+                // Fetching 3 pages (20 movies per page = 60 movies total)
+                for(let page = 1; page <= 3; page++) {
+                    const res = await fetch(`https://api.themoviedb.org/3/trending/movie/week?api_key=${TMDB_KEY}&page=${page}`);
+                    const data = await res.json();
+                    allMovies = allMovies.concat(data.results);
+                }
+                
+                trendingGrid.innerHTML = ""; // Clear loading
+                allMovies.forEach(movie => {
+                    if(movie.poster_path) {
+                        const name = movie.title || movie.name;
+                        const poster = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
+                        const rating = movie.vote_average ? movie.vote_average.toFixed(1) : "N/A";
+                        const year = movie.release_date ? movie.release_date.split("-")[0] : "N/A";
+                        const backdrop = movie.backdrop_path ? `https://image.tmdb.org/t/p/original${movie.backdrop_path}` : poster;
+                        
+                        trendingGrid.innerHTML += createMovieCardHtml(name, poster, rating, year, backdrop);
+                    }
+                });
+            } catch (err) {
+                console.error(err);
+                trendingGrid.innerHTML = "<p style='color:red;'>Failed to load trending movies.</p>";
+            }
         };
 
-        // Re-useable card builder function with dynamic structural design
-        function createMovieCardHtml(name, posterUrl, rating, year) {
-            let imageContent = posterUrl 
-                ? `<img src="${posterUrl}" alt="${name}" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'poster-fallback\'>🎬<br>${name}</div>';">`
-                : `<div class="poster-fallback">🎬<br>${name}</div>`;
-                
+        // 2. Card Builder (Now passes Backdrop image too for the Modal)
+        function createMovieCardHtml(name, posterUrl, rating, year, backdropUrl) {
+            // Escape quotes in names to prevent HTML breaking
+            const safeName = name.replace(/'/g, "\\'");
+            const safeBackdrop = backdropUrl ? backdropUrl.replace(/'/g, "\\'") : posterUrl;
+            
             return `
-                <div class="movie-card" onclick="clickMovieCard('${name}')">
-                    ${imageContent}
+                <div class="movie-card" onclick="openModal('${safeName}', '${posterUrl}', '${rating}', '${year}', '${safeBackdrop}')">
+                    <img src="${posterUrl}" alt="${name}" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'poster-fallback\'>🎬<br>${name}</div>';">
                     <div class="movie-details">
                         <div class="movie-title">${name}</div>
                         <div class="movie-meta">
@@ -323,92 +202,118 @@
             `;
         }
 
-        // 2. Dynamic TMDB API engine to fetch live details for AI model results
-        async function fetchLiveMovieDetails(movieName) {
-            try {
-                // Free public key used widely for study & integration apps
-                const tmdbKey = "c433346e492657fa969a5a3a79d9e4a5"; 
-                const url = `https://api.themoviedb.org/3/search/movie?api_key=${tmdbKey}&query=${encodeURIComponent(movieName)}`;
-                const response = await fetch(url);
-                const data = await response.json();
-                
-                if (data.results && data.results.length > 0) {
-                    const bestMatch = data.results[0];
-                    return {
-                        poster: bestMatch.poster_path ? `https://image.tmdb.org/t/p/w500${bestMatch.poster_path}` : null,
-                        rating: bestMatch.vote_average ? bestMatch.vote_average.toFixed(1) : "7.4",
-                        year: bestMatch.release_date ? bestMatch.release_date.split("-")[0] : "AI pick"
-                    };
-                }
-            } catch (err) {
-                console.error("Poster engine failed:", err);
-            }
-            // Standard smooth fallback structure if internet goes slow
-            return { poster: null, rating: "8.0", year: "AI Choice" };
+        // 3. Open Modal & Trigger AI
+        function openModal(name, poster, rating, year, backdrop) {
+            const modal = document.getElementById("movieModal");
+            document.body.style.overflow = "hidden"; // Stop background scrolling
+            
+            // Set Modal Main Info
+            document.getElementById("modalTitle").innerText = name;
+            document.getElementById("modalRating").innerText = `⭐ ${rating}`;
+            document.getElementById("modalYear").innerText = year;
+            
+            // Set Banner Background
+            const heroBg = backdrop && backdrop !== 'undefined' ? backdrop : poster;
+            document.getElementById("modalHero").style.backgroundImage = `url('${heroBg}')`;
+            
+            // Show modal
+            modal.style.display = "flex";
+            
+            // Call Backend for this movie
+            fetchRecommendationsFromBackend(name);
         }
 
-        // 3. User clicks any card -> Updates search bar, scrolls up smoothly, fires AI request
-        function clickMovieCard(movieName) {
-            document.getElementById("movieInput").value = movieName;
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-            fetchRecommendations();
+        function closeModal() {
+            document.getElementById("movieModal").style.display = "none";
+            document.body.style.overflow = "auto";
         }
 
+        // Search Bar Event
         function handleKeyPress(event) {
-            if (event.key === "Enter") fetchRecommendations();
+            if (event.key === "Enter") handleSearchClick();
         }
 
-        // 4. Core Recommendation Core Connection logic
-        async function fetchRecommendations() {
-            const movieInput = document.getElementById("movieInput").value.trim();
-            const resultsGrid = document.getElementById("resultsGrid");
-            const loadingText = document.getElementById("loadingText");
-            const errorText = document.getElementById("errorText");
-            const recSection = document.getElementById("recSection");
-            const recTitle = document.getElementById("recTitle");
+        function handleSearchClick() {
+            const input = document.getElementById("movieInput").value.trim();
+            if(!input) return alert("Please type a movie name!");
+            // Open a blank modal and let AI fetch details
+            openModal(input, 'https://image.tmdb.org/t/p/original/r256Z6W68w6ZBAw6n7Rqlet85N2.jpg', 'AI Search', '...', null);
+        }
 
-            if (!movieInput) {
-                errorText.innerHTML = "⚠️ Hey, please type or click a movie first!";
-                resultsGrid.innerHTML = "";
-                recSection.style.display = "none";
-                return;
-            }
-
-            // Reset systems
-            errorText.innerHTML = "";
-            resultsGrid.innerHTML = "";
-            recSection.style.display = "none";
-            loadingText.style.display = "block";
+        // 4. Render Backend Call (The Magic Happens Here)
+        async function fetchRecommendationsFromBackend(movieName) {
+            const aiLoading = document.getElementById("aiLoading");
+            const aiError = document.getElementById("aiError");
+            const modalRecGrid = document.getElementById("modalRecGrid");
+            
+            aiLoading.style.display = "block";
+            aiError.style.display = "none";
+            modalRecGrid.innerHTML = "";
 
             try {
-                // Connect directly to your uploaded Render model
-                const apiUrl = `https://movie-recommender-api-xu5m.onrender.com/recommend?movie=${encodeURIComponent(movieInput)}`;
+                // Call tumhara Render API
+                const apiUrl = `https://movie-recommender-api-xu5m.onrender.com/recommend?movie=${encodeURIComponent(movieName)}`;
                 const response = await fetch(apiUrl);
                 const data = await response.json();
 
+                aiLoading.style.display = "none";
+
                 if (data.error) {
-                    loadingText.style.display = "none";
-                    errorText.innerHTML = data.error;
+                    aiError.style.display = "block";
+                    aiError.innerHTML = data.error;
                     return;
-                } 
-
-                if (data.recommendations && data.recommendations.length > 0) {
-                    recTitle.innerHTML = `🍿 Because you liked "${data.searched_movie}"`;
-                    recSection.style.display = "block";
-
-                    // Process each recommendation -> Fetch live assets concurrently
-                    for (const recommendedName of data.recommendations) {
-                        const meta = await fetchLiveMovieDetails(recommendedName);
-                        resultsGrid.innerHTML += createMovieCardHtml(recommendedName, meta.poster, meta.rating, meta.year);
-                    }
-                    loadingText.style.display = "none";
                 }
 
-            } catch (error) {
-                loadingText.style.display = "none";
-                errorText.innerHTML = "🚨 Connected failed! Your Render instance might be waking up. Please retry in 1 minute.";
-                console.error(error);
+                // Populate AI Grid
+                if (data.recommendations) {
+                    for (const rec of data.recommendations) {
+                        // Check if backend returned full object or just string (Safety check)
+                        let recName, recPoster, recRating, recYear;
+                        
+                        if(typeof rec === 'object') {
+                            // Tumhara updated backend
+                            recName = rec.name;
+                            recPoster = rec.poster || "https://via.placeholder.com/500x750?text=No+Poster";
+                            recRating = rec.rating;
+                            recYear = rec.year;
+                        } else {
+                            // Purana backend string
+                            recName = rec;
+                            const meta = await fetchFallbackDetails(recName);
+                            recPoster = meta.poster; recRating = meta.rating; recYear = meta.year;
+                        }
+
+                        modalRecGrid.innerHTML += createMovieCardHtml(recName, recPoster, recRating, recYear, recPoster);
+                    }
+                }
+            } catch (err) {
+                aiLoading.style.display = "none";
+                aiError.style.display = "block";
+                aiError.innerHTML = "🚨 Connection failed! Render server might be asleep. Retry in 1 minute.";
             }
+        }
+
+        // 5. Fallback TMDB Fetcher (Just in case backend sends only names)
+        async function fetchFallbackDetails(movieName) {
+            try {
+                const res = await fetch(`https://api.themoviedb.org/3/search/movie?api_key=${TMDB_KEY}&query=${encodeURIComponent(movieName)}`);
+                const data = await res.json();
+                if (data.results && data.results.length > 0) {
+                    const best = data.results[0];
+                    return {
+                        poster: best.poster_path ? `https://image.tmdb.org/t/p/w500${best.poster_path}` : "https://via.placeholder.com/500x750?text=No+Poster",
+                        rating: best.vote_average ? best.vote_average.toFixed(1) : "7.5",
+                        year: best.release_date ? best.release_date.split("-")[0] : "2024"
+                    };
+                }
+            } catch(e) {}
+            return { poster: "https://via.placeholder.com/500x750?text=No+Poster", rating: "8.0", year: "AI" };
+        }
+
+        // Close modal if user clicks outside the modal content box
+        window.onclick = function(event) {
+            const modal = document.getElementById("movieModal");
+            if (event.target === modal) closeModal();
         }
     </script>
 </body>
