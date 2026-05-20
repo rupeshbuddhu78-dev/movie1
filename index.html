@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FlixAI - Pro Movie Recommender</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: #0d0d0c;
+            color: #ffffff;
+            min-height: 100vh;
+            background-image: radial-gradient(circle at 50% 0%, #2a0808 0%, #0d0d0c 60%);
+            overflow-x: hidden;
+        }
+
+        /* Navbar */
+        header {
+            padding: 25px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            color: #E50914; /* Netflix Red */
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px rgba(229, 9, 20, 0.5);
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 80px 20px 40px;
+        }
+        .hero h1 {
+            font-size: 4rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            background: linear-gradient(90deg, #fff, #aaa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .hero p {
+            font-size: 1.2rem;
+            color: #a3a3a3;
+            max-width: 600px;
+            margin: 0 auto 40px;
+        }
+
+        /* Search Box */
+        .search-box {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        .search-box input {
+            width: 70%;
+            padding: 18px 25px;
+            font-size: 18px;
+            border: none;
+            border-radius: 50px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            outline: none;
+            transition: 0.3s;
+        }
+        .search-box input:focus {
+            border-color: #E50914;
+            background: rgba(255, 255, 255, 0.15);
+        }
+        .search-box button {
+            padding: 15px 40px;
+            font-size: 18px;
+            font-weight: 600;
+            border: none;
+            border-radius: 50px;
+            background: #E50914;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(229, 9, 20, 0.4);
+        }
+        .search-box button:hover {
+            background: #f40612;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(229, 9, 20, 0.6);
+        }
+
+        /* Loading & Messages */
+        .message-container {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 1.2rem;
+            height: 30px;
+        }
+        .loading {
+            color: #E50914;
+            display: none;
+            animation: pulse 1.5s infinite;
+        }
+        @keyframes pulse {
+            0% { opacity: 0.5; }
+            50% { opacity: 1; }
+            100% { opacity: 0.5; }
+        }
+        .error-msg { color: #ff4d4d; }
+
+        /* Movie Grid */
+        .movies-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 30px;
+            padding: 40px 10%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .movie-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            min-height: 250px;
+            cursor: pointer;
+        }
+        
+        .movie-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            transition: 0.5s;
+        }
+        
+        .movie-card:hover::before {
+            left: 100%;
+        }
+
+        .movie-card:hover {
+            transform: translateY(-10px);
+            border-color: #E50914;
+            box-shadow: 0 10px 30px rgba(229, 9, 20, 0.2);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .movie-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+
+        .movie-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #fff;
+        }
+
+        /* For Mobile Phones */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            .search-box { flex-direction: column; align-items: center; }
+            .search-box input, .search-box button { width: 90%; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">FlixAI</div>
+    </header>
+
+    <div class="hero">
+        <h1>AI Powered Movies</h1>
+        <p>Type your favorite Hollywood movie (like Avatar, Inception, Interstellar) and our AI model will recommend the best matches for you.</p>
+        
+        <div class="search-box">
+            <input type="text" id="movieInput" placeholder="Enter a movie name..." onkeypress="handleKeyPress(event)">
+            <button onclick="fetchRecommendations()">Search</button>
+        </div>
+    </div>
+
+    <div class="message-container">
+        <div id="loadingText" class="loading">⏳ Model is predicting best movies... Please wait...</div>
+        <div id="errorText" class="error-msg"></div>
+    </div>
+
+    <div class="movies-container" id="resultsGrid">
+        </div>
+
+    <script>
+        // Enter dabane par bhi search ho jayega
+        function handleKeyPress(event) {
+            if (event.key === "Enter") {
+                fetchRecommendations();
+            }
+        }
+
+        async function fetchRecommendations() {
+            const movieInput = document.getElementById("movieInput").value.trim();
+            const resultsGrid = document.getElementById("resultsGrid");
+            const loadingText = document.getElementById("loadingText");
+            const errorText = document.getElementById("errorText");
+
+            // Agar box khali hai
+            if (!movieInput) {
+                errorText.innerHTML = "⚠️ Please enter a movie name first!";
+                resultsGrid.innerHTML = "";
+                return;
+            }
+
+            // UI Reset kar rahe hain naye search ke liye
+            errorText.innerHTML = "";
+            resultsGrid.innerHTML = "";
+            loadingText.style.display = "block";
+
+            try {
+                // TUMHARA ASLI RENDER API LINK YAHAN HAI
+                const apiUrl = `https://movie-recommender-api-xu5m.onrender.com/recommend?movie=${encodeURIComponent(movieInput)}`;
+                
+                const response = await fetch(apiUrl);
+                const data = await response.json();
+
+                // Loading hide karo
+                loadingText.style.display = "none";
+
+                // Agar API ne error return kiya (Movie nahi mili)
+                if (data.error) {
+                    errorText.innerHTML = data.error;
+                } 
+                // Agar AI ne movies nikal li!
+                else if (data.recommendations && data.recommendations.length > 0) {
+                    data.recommendations.forEach((movieName) => {
+                        const movieCard = `
+                            <div class="movie-card">
+                                <div class="movie-icon">🎬</div>
+                                <div class="movie-title">${movieName}</div>
+                            </div>
+                        `;
+                        resultsGrid.innerHTML += movieCard;
+                    });
+                }
+
+            } catch (error) {
+                loadingText.style.display = "none";
+                errorText.innerHTML = "🚨 Backend se connect nahi ho paaya! Server so raha hoga, 1-2 minute baad try karo.";
+                console.error("API Error:", error);
+            }
+        }
+    </script>
+</body>
+</html>
