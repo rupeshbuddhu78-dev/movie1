@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>FlixAI - Premium Movie Engine</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
@@ -24,12 +24,12 @@
 
         /* Cinematic Hero Banner */
         .hero-banner {
-            position: relative; height: 75vh;
+            position: relative; height: 75vh; min-height: 500px;
             background: linear-gradient(to right, rgba(20,20,20,1) 10%, rgba(20,20,20,0.4) 60%, rgba(20,20,20,0.8) 100%), 
                         url('https://image.tmdb.org/t/p/original/r256Z6W68w6ZBAw6n7Rqlet85N2.jpg') no-repeat center center/cover;
             display: flex; align-items: center; padding: 0 6%; margin-bottom: 20px;
         }
-        .hero-content { max-width: 650px; margin-top: 50px; z-index: 2; }
+        .hero-content { max-width: 650px; margin-top: 50px; z-index: 2; width: 100%; }
         .hero-badge { background: #E50914; color: #fff; padding: 4px 10px; font-size: 12px; font-weight: 600; border-radius: 4px; text-transform: uppercase; display: inline-block; margin-bottom: 15px; }
         .hero-banner h1 { font-size: 3.5rem; font-weight: 700; line-height: 1.1; margin-bottom: 15px; text-shadow: 2px 2px 10px rgba(0,0,0,0.8); }
         .hero-banner p { font-size: 1.1rem; color: #cccccc; margin-bottom: 30px; text-shadow: 1px 1px 5px rgba(0,0,0,0.8); }
@@ -37,9 +37,9 @@
         /* Search Container */
         .search-container { background: rgba(20, 20, 20, 0.75); padding: 25px; border-radius: 10px; backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.1); }
         .search-box { display: flex; gap: 15px; }
-        .search-box input { flex: 1; padding: 15px; font-size: 16px; border: none; border-radius: 6px; background: rgba(255, 255, 255, 0.15); color: white; outline: none; transition: 0.3s; }
+        .search-box input { flex: 1; padding: 15px; font-size: 16px; border: none; border-radius: 6px; background: rgba(255, 255, 255, 0.15); color: white; outline: none; transition: 0.3s; width: 100%; }
         .search-box input:focus { border: 1px solid #E50914; background: rgba(255, 255, 255, 0.25); }
-        .search-box button { padding: 15px 30px; font-size: 16px; font-weight: 600; border: none; border-radius: 6px; background: #E50914; color: white; cursor: pointer; transition: 0.3s; }
+        .search-box button { padding: 15px 30px; font-size: 16px; font-weight: 600; border: none; border-radius: 6px; background: #E50914; color: white; cursor: pointer; transition: 0.3s; white-space: nowrap; }
         .search-box button:hover { background: #b80710; transform: scale(1.02); }
 
         /* Grid System */
@@ -65,30 +65,54 @@
         
         @keyframes modalIn { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
 
-        .close-btn { position: absolute; top: 15px; right: 20px; background: rgba(0,0,0,0.6); color: white; border: none; font-size: 24px; cursor: pointer; z-index: 20; width: 40px; height: 40px; border-radius: 50%; display: flex; justify-content: center; align-items: center; transition: 0.2s; }
-        .close-btn:hover { background: #E50914; }
+        .close-btn { position: absolute; top: 15px; right: 15px; background: rgba(0,0,0,0.7); color: white; border: 1px solid rgba(255,255,255,0.3); font-size: 24px; cursor: pointer; z-index: 20; width: 40px; height: 40px; border-radius: 50%; display: flex; justify-content: center; align-items: center; transition: 0.2s; }
+        .close-btn:hover { background: #E50914; border-color: #E50914; }
 
         /* Modal Top: Main Movie Banner */
         .modal-hero { height: 350px; background-size: cover; background-position: center; position: relative; display: flex; align-items: flex-end; padding: 30px; }
-        .modal-hero-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to top, #141414 0%, rgba(20,20,20,0.4) 50%, transparent 100%); }
-        .modal-main-info { position: relative; z-index: 10; }
-        .modal-title { font-size: 2.5rem; font-weight: 700; margin-bottom: 10px; }
-        .modal-meta { font-size: 1rem; color: #ccc; margin-bottom: 15px; display: flex; gap: 15px; align-items: center; }
+        .modal-hero-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to top, #141414 0%, rgba(20,20,20,0.5) 50%, transparent 100%); }
+        .modal-main-info { position: relative; z-index: 10; width: 100%; }
+        .modal-title { font-size: 2.5rem; font-weight: 700; margin-bottom: 10px; line-height: 1.2; }
+        .modal-meta { font-size: 1rem; color: #ccc; margin-bottom: 15px; display: flex; gap: 15px; align-items: center; flex-wrap: wrap; }
 
         /* Modal Bottom: AI Recommendations */
         .modal-body { padding: 30px; background: #141414; }
         .ai-title { font-size: 1.3rem; font-weight: 600; margin-bottom: 15px; color: #fff; border-left: 4px solid #E50914; padding-left: 10px; }
         
-        .loading-ai { text-align: center; color: #46d369; font-weight: 500; padding: 20px; display: none; }
-        .error-ai { text-align: center; color: #ff3333; padding: 20px; display: none; }
+        .loading-ai, .error-ai { text-align: center; font-weight: 500; padding: 20px; display: none; grid-column: 1 / -1; width: 100%; }
+        .loading-ai { color: #46d369; }
+        .error-ai { color: #ff3333; }
 
+        /* 📱 RESPONSIVE MEDIA QUERIES (MOBILE FIXES) 📱 */
         @media (max-width: 768px) {
-            .hero-banner { height: auto; padding: 100px 6% 40px; }
+            header { padding: 15px 5%; justify-content: center; background: rgba(0,0,0,0.8); }
+            .logo { font-size: 28px; }
+            
+            .hero-banner { height: auto; min-height: auto; padding: 100px 5% 50px; background-position: top center; }
             .hero-banner h1 { font-size: 2.2rem; }
-            .search-box { flex-direction: column; }
-            .movies-grid { grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); }
-            .modal-hero { height: 250px; }
+            .hero-banner p { font-size: 0.95rem; }
+            
+            .search-container { padding: 15px; }
+            .search-box { flex-direction: column; gap: 10px; }
+            .search-box button { width: 100%; }
+            
+            /* Smaller grids for mobile so 2/3 posters fit side by side */
+            .movies-grid { grid-template-columns: repeat(auto-fill, minmax(105px, 1fr)); gap: 10px; }
+            .section-container { padding: 0 5% 30px; }
+            .section-title { font-size: 1.3rem; }
+            
+            /* Always show title on mobile since hover doesn't exist on touch */
+            .movie-details { opacity: 1; background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.6) 50%, transparent 100%); padding: 20px 8px 8px; }
+            .movie-title { font-size: 0.8rem; }
+            .movie-meta { font-size: 0.7rem; gap: 5px; }
+            
+            /* Modal mobile fixes */
+            .modal-overlay { padding: 10px; align-items: flex-end; } /* Opens from bottom like an app */
+            .modal-content { margin: 0; max-height: 95vh; display: flex; flex-direction: column; }
+            .modal-hero { height: 250px; padding: 20px; }
             .modal-title { font-size: 1.8rem; }
+            .modal-body { padding: 20px; overflow-y: auto; }
+            .ai-title { font-size: 1.1rem; }
         }
     </style>
 </head>
@@ -138,7 +162,7 @@
             <div class="modal-body">
                 <h3 class="ai-title">Because you liked this, AI Recommends:</h3>
                 
-                <div id="aiLoading" class="loading-ai">⏳ Connecting to Render Backend... Finding best matches...</div>
+                <div id="aiLoading" class="loading-ai">⏳ Connecting to AI Brain... Finding best matches...</div>
                 <div id="aiError" class="error-ai"></div>
                 
                 <div class="movies-grid" id="modalRecGrid">
@@ -148,24 +172,22 @@
     </div>
 
     <script>
-        const TMDB_KEY = "c433346e492657fa969a5a3a79d9e4a5"; // Tumhari TMDB key
+        const TMDB_KEY = "c433346e492657fa969a5a3a79d9e4a5"; 
         
-        // 1. Auto-fetch 60 Trending Movies for Home Page
+        // 1. Auto-fetch Trending Movies via YOUR Render Backend (VPN Bypass!)
         window.onload = async () => {
             const trendingGrid = document.getElementById("trendingGrid");
-            trendingGrid.innerHTML = "<p style='color:#777;'>Loading library...</p>";
+            trendingGrid.innerHTML = "<div class='loading-ai' style='display:block; padding-top:40px;'>🍿 Loading premium library from AI Server...</div>";
             
-            let allMovies = [];
             try {
-                // Fetching 3 pages (20 movies per page = 60 movies total)
-                for(let page = 1; page <= 3; page++) {
-                    const res = await fetch(`https://api.themoviedb.org/3/trending/movie/week?api_key=${TMDB_KEY}&page=${page}`);
-                    const data = await res.json();
-                    allMovies = allMovies.concat(data.results);
-                }
+                // Connecting directly to your FastAPI backend instead of TMDB
+                const res = await fetch(`https://movie-recommender-api-xu5m.onrender.com/trending`);
+                const results = await res.json();
                 
+                if(results.error) throw new Error(results.error);
+
                 trendingGrid.innerHTML = ""; // Clear loading
-                allMovies.forEach(movie => {
+                results.forEach(movie => {
                     if(movie.poster_path) {
                         const name = movie.title || movie.name;
                         const poster = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
@@ -178,11 +200,11 @@
                 });
             } catch (err) {
                 console.error(err);
-                trendingGrid.innerHTML = "<p style='color:red;'>Failed to load trending movies.</p>";
+                trendingGrid.innerHTML = "<div class='error-ai' style='display:block; padding-top:40px;'>🚨 Render server is waking up (Takes ~50s). Please refresh this page!</div>";
             }
         };
 
-        // 2. Card Builder (Now passes Backdrop image too for the Modal)
+        // 2. Card Builder
         function createMovieCardHtml(name, posterUrl, rating, year, backdropUrl) {
             // Escape quotes in names to prevent HTML breaking
             const safeName = name.replace(/'/g, "\\'");
@@ -267,17 +289,14 @@
                 // Populate AI Grid
                 if (data.recommendations) {
                     for (const rec of data.recommendations) {
-                        // Check if backend returned full object or just string (Safety check)
                         let recName, recPoster, recRating, recYear;
                         
                         if(typeof rec === 'object') {
-                            // Tumhara updated backend
                             recName = rec.name;
                             recPoster = rec.poster || "https://via.placeholder.com/500x750?text=No+Poster";
                             recRating = rec.rating;
                             recYear = rec.year;
                         } else {
-                            // Purana backend string
                             recName = rec;
                             const meta = await fetchFallbackDetails(recName);
                             recPoster = meta.poster; recRating = meta.rating; recYear = meta.year;
@@ -293,7 +312,7 @@
             }
         }
 
-        // 5. Fallback TMDB Fetcher (Just in case backend sends only names)
+        // 5. Fallback TMDB Fetcher
         async function fetchFallbackDetails(movieName) {
             try {
                 const res = await fetch(`https://api.themoviedb.org/3/search/movie?api_key=${TMDB_KEY}&query=${encodeURIComponent(movieName)}`);
